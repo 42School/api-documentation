@@ -11,3 +11,9 @@ The API works over the https protocol. and accessed from the *api.intrav2.42.fr*
 - All data is sent and received as JSON.
 - Blank fields are included as null instead of being omitted.
 - All timestamps are returned in ISO 8601 format
+
+
+Current version
+----------------
+
+The current API version is *2.0a*. The first version of the API is now deprecated, and we encourage all API v1 applications developers to migrate their apps to this version.
