@@ -29,6 +29,7 @@ Name | Type | Description
 `scope`|`string` | A space separated list of [scopes](#scopes). If not provided, `scope` defaults to an empty list of scopes for users that don't have a valid token for the app. For users who do already have a valid token for the app, the user won't be shown the OAuth authorization page with the list of scopes. Instead, this step of the flow will automatically complete with the same scopes that were used last time the user completed the flow.
 `state`|`string` | An unguessable random string. It is used to protect against cross-site request forgery attacks.
 
+
 For example with curl:
 
 ```sh
@@ -128,6 +129,7 @@ For example, in curl you can set the Authorization header like this:
 Simple example using the [oauth2 ruby wrapper](https://github.com/intridea/oauth2) with simple token flow. In this example, you only have access to public resources, which don't need user credentials.
 
 ```ruby
+
 require "oauth2"
 
 UID = "Your application uid"
@@ -142,6 +144,7 @@ token = client.client_credentials.get_token
 # Make your requests
 # Don't forget the "/v2" namespace, or your will request the first version of the 42 API
 token.get("/v2/cursus").parsed
+
 ```
 
 
