@@ -18,7 +18,7 @@ This is a description of the OAuth2 flow from 3rd party web sites.
 
 #### 1. Redirect users to request 42 access
 
-    GET https://api.intrav2.42.fr/oauth/authorize
+`GET https://api.intrav2.42.fr/oauth/authorize`
 
 #### Parameters
 
@@ -29,9 +29,11 @@ Name | Type | Description
 `scope`|`string` | A space separated list of [scopes](#scopes). If not provided, `scope` defaults to an empty list of scopes for users that don't have a valid token for the app. For users who do already have a valid token for the app, the user won't be shown the OAuth authorization page with the list of scopes. Instead, this step of the flow will automatically complete with the same scopes that were used last time the user completed the flow.
 `state`|`string` | An unguessable random string. It is used to protect against cross-site request forgery attacks.
 
-For example:
+For example with curl:
 
-  curl 'https://api.intrav2.42.fr/oauth/authorize?client_id=your_very_long_client_id&redirect_uri=http%3A%2F%2Flocalhost%3A1919%2Fusers%2Fauth%2Fft%2Fcallback&response_type=code&scope=public&state=a_very_long_random_string_witchmust_be_unguessable'
+```sh
+curl 'https://api.intrav2.42.fr/oauth/authorize?client_id=your_very_long_client_id&redirect_uri=http%3A%2F%2Flocalhost%3A1919%2Fusers%2Fauth%2Fft%2Fcallback&response_type=code&scope=public&state=a_very_long_random_string_witchmust_be_unguessable'
+```
 
 ### 2. 42 redirects back to your site
 
@@ -117,3 +119,54 @@ cleaner approach is to include it in the Authorization header
 For example, in curl you can set the Authorization header like this:
 
     curl -H "Authorization: token OAUTH-TOKEN" https://api.github.com/user -->
+
+
+## Simple server based examples
+
+### With ruby
+
+Simple example using the [oauth2 ruby wrapper](https://github.com/intridea/oauth2) with simple token flow. In this example, you only have access to public resources, which don't need user credentials.
+
+```ruby
+require "oauth2"
+
+UID = "Your application uid"
+SECRET = "Your secret token"
+
+# Create the client with your credentials
+client = OAuth2::Client.new(UID, SECRET, site: "https://api.intrav2.42.fr")
+
+# Get an access token
+token = client.client_credentials.get_token
+
+# Make your requests
+# Don't forget the "/v2" namespace, or your will request the first version of the 42 API
+token.get("/v2/cursus").parsed
+```
+
+
+
+
+
+
+    
+
+
+
+
+    
+
+
+
+
+    
+
+
+
+
+    
+
+
+
+
+
