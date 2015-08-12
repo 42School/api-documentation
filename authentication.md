@@ -12,9 +12,14 @@ This is a description of the OAuth2 flow from 3rd party web sites.
 
 #### 1. Redirect users to request 42 access
 
-`GET https://api.intrav2.42.fr/oauth/authorize`
+That's the first step. Link or redirect users to the API authorize url: `https://api.intrav2.42.fr/oauth/authorize`.
+This must be properly formatted for your application and will return a permissions screen for the user to authorize. For convenience, a formatted authorize URL including your client_id is provided for each application in the [apps page](https://profile.intrav2.42.fr/oauth/applications).
 
-#### Parameters
+##### Base url
+
+    GET https://api.intrav2.42.fr/oauth/authorize
+
+##### Parameters
 
 Name | Type | Description
 -----|------|--------------
@@ -23,14 +28,17 @@ Name | Type | Description
 `scope`|`string` | A space separated list of [scopes](#scopes). If not provided, `scope` defaults to an empty list of scopes for users that don't have a valid token for the app. For users who do already have a valid token for the app, the user won't be shown the OAuth authorization page with the list of scopes. Instead, this step of the flow will automatically complete with the same scopes that were used last time the user completed the flow.
 `state`|`string` | An unguessable random string. It is used to protect against cross-site request forgery attacks.
 
+All this things will make together a nice and understandable URI, like:
 
-For example with curl:
+    https://api.intrav2.42.fr/oauth/authorize?client_id=your_very_long_client_id&redirect_uri=http%3A%2F%2Flocalhost%3A1919%2Fusers%2Fauth%2Fft%2Fcallback&response_type=code&scope=public&state=a_very_long_random_string_witchmust_be_unguessable'
 
-```bash
-curl 'https://api.intrav2.42.fr/oauth/authorize?client_id=your_very_long_client_id&redirect_uri=http%3A%2F%2Flocalhost%3A1919%2Fusers%2Fauth%2Fft%2Fcallback&response_type=code&scope=public&state=a_very_long_random_string_witchmust_be_unguessable'
-```
+> *Small note*: when formatting the scopes parameters, be sure to read above about the distinction between application-level and token-level scopes. this has been a point of friction for some developers.
 
-### 2. 42 redirects back to your site
+#### 2. 42 redirects back to your site
+
+`TODO`
+
+-----------
 
 ## Simple server based examples
 
@@ -54,7 +62,6 @@ token = client.client_credentials.get_token
 # Make your requests
 # Don't forget the "/v2" namespace, or your will request the first version of the 42 API
 token.get("/v2/cursus").parsed
-
 ```
 
 

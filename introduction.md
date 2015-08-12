@@ -7,6 +7,7 @@ Specifications
 --------------
 
 The API works over the https protocol. and accessed from the *api.intrav2.42.fr* domain.
+
 - The current endpoint is https://api.intrav2.42.fr/v2.
 - All data is sent and received as JSON.
 - Blank fields are included as null instead of being omitted.
