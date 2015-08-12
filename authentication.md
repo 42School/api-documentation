@@ -46,13 +46,21 @@ If the user grants the permission for your application to use the requested data
 You're almost here !
 The last thing to do is a POST request to the `https://api.intrav2.42.fr/oauth/token` endpoint, with your `client_id`, your `client_secret`, the previous `code` and your `redirect_uri`. *This request must be performed on server side, over a secure connexion*.
 
-Useless note: This corresponds to the token endpoint, section 3.2 of the OAuth 2 RFC. Happy now?
+Useless note: This corresponds to the token endpoint, section 3.2 of the OAuth 2 RFC. Happy ?
 
 ##### Base url
 
     POST https://api.intrav2.42.fr/oauth/token
 
 ##### Parameters
+
+Name | Type | Description
+-----|------|--------------
+client_id | string |  **Required**. The client ID you received from 42 when you registered.
+client_secret | string |  **Required**. The client secret you received from 42 when you registered.
+code  | string |  **Required**. The code you received as a response to [Step 1](#1-redirect-users-to-request-42-access).
+redirect_uri  | string |  The URL in your app where users will be sent after authorization.
+state | string |  The unguessable random string you optionally provided in [Step 1](#1-redirect-users-to-request-42-access).
 
 
 -----------
