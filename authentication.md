@@ -23,10 +23,10 @@ This must be properly formatted for your application and will return a permissio
 
 Name | Type | Description
 -----|------|--------------
-`client_id`|`string` | **Required**. The client ID you received from 42 when you [registered](https://profile.intrav2.42.fr/oauth/applications/new).
-`redirect_uri`|`string` | The URL in your app where users will be sent after authorization. See details below about [redirect urls](#redirect-urls).
-`scope`|`string` | A space separated list of [scopes](#scopes). If not provided, `scope` defaults to an empty list of scopes for users that don't have a valid token for the app. For users who do already have a valid token for the app, the user won't be shown the OAuth authorization page with the list of scopes. Instead, this step of the flow will automatically complete with the same scopes that were used last time the user completed the flow.
-`state`|`string` | An unguessable random string. It is used to protect against cross-site request forgery attacks.
+client_id|string | **Required**. The client ID you received from 42 when you [registered](https://profile.intrav2.42.fr/oauth/applications/new).
+redirect_uri|string | The URL in your app where users will be sent after authorization. See details below about [redirect urls](#redirect-urls).
+scope|string | A space separated list of [scopes](#scopes). If not provided, `scope` defaults to an empty list of scopes for users that don't have a valid token for the app. For users who do already have a valid token for the app, the user won't be shown the OAuth authorization page with the list of scopes. Instead, this step of the flow will automatically complete with the same scopes that were used last time the user completed the flow.
+state|string | An unguessable random string. It is used to protect against cross-site request forgery attacks.
 
 All this things will make together a nice and understandable URI, like:
 
