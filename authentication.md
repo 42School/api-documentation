@@ -38,7 +38,22 @@ All this things will make together a nice and understandable URI, like:
 
 ![auth_dialog](https://raw.githubusercontent.com/lambda2/42-API-Documentation/master/images/authorize_dialog.png?token=AC497ynhhrHdo8rZlplIQ_tb4Fd2wbT4ks5V1J_kwA%3D%3D) _The 42 auth dialog_
 
-If the user grants the permission for your application to use the requested data (see [scopes](#scopes)), it will be redirected to your `redirect_uri`, with is the url provided...
+If the user grants the permission for your application to use the requested data (see [scopes](#scopes)), it will be redirected to your `redirect_uri` with a temporary code in a GET `code` parameter as well as the state you provided in the previous step in a `state` parameter.
+> If the states don't match, the request has been created by a third party and the process should be aborted.
+
+#### 3. Exchange your code for an access token
+
+You're almost here !
+The last thing to do is a POST request to the `https://api.intrav2.42.fr/oauth/token` endpoint, with your `client_id`, your `client_secret`, the previous `code` and your `redirect_uri`. *This request must be performed on server side, over a secure connexion*.
+
+Useless note: This corresponds to the token endpoint, section 3.2 of the OAuth 2 RFC. Happy now?
+
+##### Base url
+
+    POST https://api.intrav2.42.fr/oauth/token
+
+##### Parameters
+
 
 -----------
 
