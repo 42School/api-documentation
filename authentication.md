@@ -6,7 +6,7 @@ OAuth2 is a protocol that lets external apps request authorization to private de
 
 All developers need to [register their application](https://profile.intrav2.42.fr/oauth/applications/new) before getting started. A registered OAuth application is assigned a unique Client ID and Client Secret. The Client Secret should not be shared.
 
-### Client side web Application Flow
+### Web Application Flow
 
 This is a description of the OAuth2 flow from 3rd party web sites.
 
@@ -36,7 +36,9 @@ All this things will make together a nice and understandable URI, like:
 
 #### 2. 42 redirects back to your site
 
-`TODO`
+![auth_dialog](https://raw.githubusercontent.com/lambda2/42-API-Documentation/master/images/authorize_dialog.png?token=AC497ynhhrHdo8rZlplIQ_tb4Fd2wbT4ks5V1J_kwA%3D%3D) _The 42 auth dialog_
+
+If the user grants the permission for your application to use the requested data (see [scopes](#scopes)), it will be redirected to your `redirect_uri`, with is the url provided...
 
 -----------
 
