@@ -44,7 +44,7 @@ If the user grants the permission for your application to use the requested data
 #### 3. Exchange your code for an access token
 
 You're almost here !
-The last thing to do is a POST request to the `https://api.intrav2.42.fr/oauth/token` endpoint, with your `client_id`, your `client_secret`, the previous `code` and your `redirect_uri`. *This request must be performed on server side, over a secure connexion*.
+The last thing to do is a POST request to the `https://api.intrav2.42.fr/oauth/token` endpoint, with your `client_id`, your `client_secret`, the previous `code` and your `redirect_uri`. **This request must be performed on server side, over a secure connexion**.
 
 Useless note: This corresponds to the token endpoint, section 3.2 of the OAuth 2 RFC. Happy ?
 
