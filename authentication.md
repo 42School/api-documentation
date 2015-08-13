@@ -62,56 +62,31 @@ code  | string |  **Required**. The code you received as a response to [Step 1](
 redirect_uri  | string |  The URL in your app where users will be sent after authorization.
 state | string |  The unguessable random string you optionally provided in [Step 1](#1-redirect-users-to-request-42-access).
 
+#### 4. Make API requests with your token
 
------------
+Include your token in all your requests in a authorization header:
 
-## Simple server based examples
-
-### With ruby
-
-Simple example using the [oauth2 ruby wrapper](https://github.com/intridea/oauth2) with simple token flow. In this example, you only have access to public resources, which don't need user credentials.
-
-```ruby
-
-require "oauth2"
-
-UID = "Your application uid"
-SECRET = "Your secret token"
-
-# Create the client with your credentials
-client = OAuth2::Client.new(UID, SECRET, site: "https://api.intrav2.42.fr")
-
-# Get an access token
-token = client.client_credentials.get_token
-
-# Make your requests
-# Don't forget the "/v2" namespace, or your will request the first version of the 42 API
-token.get("/v2/cursus").parsed
+```
+Authorization: Bearer YOUR_ACCESS_TOKEN
 ```
 
+For example, you can fetch the current token owner, with curl:
 
+```bash
+curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" https://api.intrav2.42.fr/v2/me
 
+# {"id":23,"alias":"30_1@orga.42.fr","email":"30_1@orga.42.fr","login":"30_1","url":"http://localhost:12000/v2/users/30_1","mobile":null,"displayname":"Mathieu TRENTIN","image_url":"https://cdn.42.fr/userprofil/profilview/30_1.jpg","staff?":true,"wallet":0,"groups":[{"id":3,"name":"pixel"},{"id":1,"name":"staff"}],"user_data":{"correction_point":5,"location":null,"campus":{"id":1,"name":"Paris","created_at":"2015-05-19T12:53:31.459+02:00","updated_at":"2015-07-20T19:28:05.730+02:00","time_zone":"Paris","language_id":1,"slug":"paris"}},"cursus":[{"id":1,"created_at":"2014-11-02T17:43:38.480+01:00","name":"42","slug":"42","users_count":2024,"url":"http://localhost:12000/v2/cursus/42"}]}
+```
 
+> If you can't modify http headers, you can send your token as a `access_token` parameter.
 
+--------------------------------------------------------------------------------------------------
 
-    
+If you want to know more about your token, you can fetch **https://api.intrav2.42.fr/oauth/token/info**.
 
+```bash
+curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" https://api.intrav2.42.fr/oauth/token/info
 
-
-
-    
-
-
-
-
-    
-
-
-
-
-    
-
-
-
-
+# {"resource_owner_id":74,"scopes":["public"],"expires_in_seconds":7174,"application":{"uid":"3089cd94d72cc9109800a5eea5218ed4c3e891ec1784874944225878b95867f9"},"created_at":1439460680}%
+```
 
