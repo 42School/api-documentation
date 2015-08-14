@@ -27,6 +27,7 @@ client_id|string | **Required**. The client ID you received from 42 when you [re
 redirect_uri|string | The URL in your app where users will be sent after authorization. See details below about [redirect urls](#redirect-urls).
 scope|string | A space separated list of [scopes](#scopes). If not provided, `scope` defaults to an empty list of scopes for users that don't have a valid token for the app. For users who do already have a valid token for the app, the user won't be shown the OAuth authorization page with the list of scopes. Instead, this step of the flow will automatically complete with the same scopes that were used last time the user completed the flow.
 state|string | An unguessable random string. It is used to protect against cross-site request forgery attacks.
+response_type|string | The response type. Ususally `code`.
 
 All this things will make together a nice and understandable URI, like:
 
@@ -56,11 +57,23 @@ Useless note: This corresponds to the token endpoint, section 3.2 of the OAuth 2
 
 Name | Type | Description
 -----|------|--------------
+grant_type | string |  **Required**. The grant type. In this case, it's `authorization_code`.
 client_id | string |  **Required**. The client ID you received from 42 when you registered.
 client_secret | string |  **Required**. The client secret you received from 42 when you registered.
 code  | string |  **Required**. The code you received as a response to [Step 1](#1-redirect-users-to-request-42-access).
 redirect_uri  | string |  The URL in your app where users will be sent after authorization.
 state | string |  The unguessable random string you optionally provided in [Step 1](#1-redirect-users-to-request-42-access).
+
+For example, with curl:
+
+```bash
+curl -F grant_type=authorization_code \
+-F client_id=9b36d8c0db59eff5038aea7a417d73e69aea75b41aac771816d2ef1b3109cc2f \
+-F client_secret=d6ea27703957b69939b8104ed4524595e210cd2e79af587744a7eb6e58f5b3d2 \
+-F code=fd0847dbb559752d932dd3c1ac34ff98d27b11fe2fea5a864f44740cd7919ad0 \
+-F redirect_uri=https://myawesomeweb.site/callback \
+-X POST https://api.intrav2.42.fr/oauth/token
+```
 
 #### 4. Make API requests with your token
 
