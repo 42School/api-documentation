@@ -39,7 +39,9 @@ This must be properly formatted for your application and will return a permissio
 
 ##### Base url
 
-    GET https://api.intrav2.42.fr/oauth/authorize
+```http
+GET https://api.intrav2.42.fr/oauth/authorize
+```
 
 ##### Parameters
 
@@ -53,7 +55,9 @@ response_type|string | The response type. Ususally `code`.
 
 All this things will make together a nice and understandable URI, like:
 
-`https://api.intrav2.42.fr/oauth/authorize?client_id=your_very_long_client_id&redirect_uri=http%3A%2F%2Flocalhost%3A1919%2Fusers%2Fauth%2Fft%2Fcallback&response_type=code&scope=public&state=a_very_long_random_string_witchmust_be_unguessable'`
+```
+https://api.intrav2.42.fr/oauth/authorize?client_id=your_very_long_client_id&redirect_uri=http%3A%2F%2Flocalhost%3A1919%2Fusers%2Fauth%2Fft%2Fcallback&response_type=code&scope=public&state=a_very_long_random_string_witchmust_be_unguessable'
+```
 
 > *Small note*: when formatting the scopes parameters, be sure to read above about the distinction between application-level and token-level scopes. this has been a point of friction for some developers.
 
@@ -73,7 +77,9 @@ Useless note: This corresponds to the token endpoint, section 3.2 of the OAuth 2
 
 ##### Base url
 
-    POST https://api.intrav2.42.fr/oauth/token
+```http
+POST https://api.intrav2.42.fr/oauth/token
+```
 
 ##### Parameters
 
