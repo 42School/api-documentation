@@ -60,6 +60,7 @@ Hooray ! We got our data ! And what about the users in the cursus `42` ?
 ```ruby
 
 users_in_cursus = token.get("/v2/cursus/42/users").parsed
+# => {"id"=>2, "login"=>"avisenti", "url"=>"https://api.intrav2.42.fr/v2/users/avisenti", "end_at"=>nil}, {"id"=>3, "login"=>"spariaud", "url"=>"https://api.intrav2.42.fr/v2/users/spariaud", "end_at"=>nil}, ...
 users_in_cursus.count
 # => 30
 ```
@@ -69,14 +70,54 @@ What the hell ? Only 30 users ? And what says the [documentation](https://api.in
 Pagination
 ----------
 The documentation says that the resource is paginated by 30 items, and that we can specify a `page` parameter, in order to navigate trough it.
-`TODO`
+Let's try to fetch the second page:
+
+```ruby
+second_page = token.get("/v2/cursus/42/users", params: {page: 2})
+# => #<OAuth2::Response:0x007f9ba3b7eb98 @response=#<Faraday::Response:0x007f9ba3b949c0 @on_complete_callbacks=[], @env=#<Faraday::Env @method=:get @body="[{\"id\":35,\"login\":\"droger\",\"url\":\"https://api.intrav2.42.fr/v2/users/droger\",\"end_at\":null},{\"id\":36,\"login\":\"edelbe\",\"url\":\"https://api.intrav2.42.fr/v2/users/edelbe\"...
+second_page.parsed
+# => {"id"=>35, "login"=>"droger", "url"=>"https://api.intrav2.42.fr/v2/users/droger", "end_at"=>nil}, {"id"=>36, "login"=>"edelbe", "url"=>"https://api.intrav2.42.fr/v2/users/edelbe", "end_at"=>nil}, ...
+```
+
+Well, it seems to work ! But how can we know if there is a next page ? One simple solution is to go forward until the call returns an empty array, but if we need more informations, we can take a look on the `Link` HTTP response header.
+
+```ruby
+second_page.headers["Link"]
+# => "<https://api.intrav2.42.fr/v2/cursus/42/users?page=3>; rel=\"next\", <https://api.intrav2.42.fr/v2/cursus/42/users?page=1>; rel=\"prev\", <https://api.intrav2.42.fr/v2/cursus/42/users?page=1>; rel=\"first\", <https://api.intrav2.42.fr/v2/cursus/42/users?page=64>; rel=\"last\""
+```
+We now have the links for the first, the next, the previous and the last pages.
+The response headers contains a lot of more or less useful informations, take a look.
+
+```http
+x-frame-options: SAMEORIGIN
+x-xss-protection: 1; mode=block
+x-content-type-options: nosniff
+x-ratelimit-limit: '100'
+x-ratelimit-remaining: '12'
+x-application-name: My first application
+x-application-id: '1'
+x-application-roles: None
+link: <https://api.intrav2.42.fr/v2/cursus/42/users?page=3>; rel="next", <https://api.intrav2.42.fr/v2/cursus/42/users?page=1>;
+  rel="prev", <https://api.intrav2.42.fr/v2/cursus/42/users?page=1>; rel="first", <https://api.intrav2.42.fr/v2/cursus/42/users?page=64>;
+  rel="last"
+content-type: application/json; charset=utf-8
+etag: W/"78edc461d5186b60dec4e2fd515dda64"
+cache-control: max-age=0, private, must-revalidate
+x-runtime: '0.751982'
+vary: Origin
+x-rack-cors: preflight-hit; no-origin
+connection: close
+```
 
 
 Limits
 ---------
-`TODO`
+By default, your application is "rate limited", and can only make a limited number of requests per hour. The `x-ratelimit-*` fields of the response header can give us some informations about that.
 
+- The `x-ratelimit-limit` field shows the request limit per hour of our application.
+- The `x-ratelimit-remaining` field shows the number of request remaining in this hour for our application.
 
+Now, let's see what happens when we exceed the rate limit
 Roles
 ---------
 `TODO`

@@ -53,7 +53,7 @@ response_type|string | The response type. Ususally `code`.
 
 All this things will make together a nice and understandable URI, like:
 
-    https://api.intrav2.42.fr/oauth/authorize?client_id=your_very_long_client_id&redirect_uri=http%3A%2F%2Flocalhost%3A1919%2Fusers%2Fauth%2Fft%2Fcallback&response_type=code&scope=public&state=a_very_long_random_string_witchmust_be_unguessable'
+`https://api.intrav2.42.fr/oauth/authorize?client_id=your_very_long_client_id&redirect_uri=http%3A%2F%2Flocalhost%3A1919%2Fusers%2Fauth%2Fft%2Fcallback&response_type=code&scope=public&state=a_very_long_random_string_witchmust_be_unguessable'`
 
 > *Small note*: when formatting the scopes parameters, be sure to read above about the distinction between application-level and token-level scopes. this has been a point of friction for some developers.
 
@@ -160,36 +160,6 @@ When the client requests the authorization it specifies in which scope they woul
 
 The 42 API paginates all indexes pages.
 `TODO`
-
-
-
-## Examples
-
-
-#### Simple server based example with ruby
-
-Simple example using the [oauth2 ruby wrapper](https://github.com/intridea/oauth2) with simple token flow. In this example, you only have access to public resources, which don't need user credentials.
-
-```ruby
-
-require "oauth2"
-
-UID = "Your application uid"
-SECRET = "Your secret token"
-
-# Create the client with your credentials
-client = OAuth2::Client.new(UID, SECRET, site: "https://api.intrav2.42.fr")
-
-# Get an access token
-token = client.client_credentials.get_token
-
-# Make your requests
-# Don't forget the "/v2" namespace, or your will request the first version of the 42 API
-token.get("/v2/cursus").parsed
-```
-
-
-
 
 
 
