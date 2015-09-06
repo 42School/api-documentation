@@ -15,7 +15,7 @@ You will need to configure a few things in order to make your application:
 > Note: The complete description of the authentication process through the OAuth2 Web Application Flow is described in the [introduction section of theses guides](/apidoc/guides/introduction#web-application-flow).
 
 
-Get your application credentials
+Get your credentials
 -------------------------------
 
 Awesome ! You just created your first application !
@@ -25,7 +25,7 @@ Now, take a look on your application page, we got a lot of informations there, b
 - *The client secret*, an secret passphrase for your application, which **must be kept secret**, and only used on server side, where users can't see it.
 
 
-Start fetching data
+Make basic requests
 --------------------
 Now, you have all you need to setup a little basic script using the API trough your application. In this example, we will use ruby, with the [OAuth2 ruby wrapper](https://github.com/intridea/oauth2), but OAuth2 wrappers exists in most languages.
 
@@ -67,6 +67,8 @@ users_in_cursus.count
 
 What the hell ? Only 30 users ? And what says the [documentation](https://api.intrav2.42.fr/apidoc/2.0/cursus_users/index.html) about that ?
 
+
+
 Pagination
 ----------
 The documentation says that the resource is paginated by 30 items, and that we can specify a `page` parameter, in order to navigate trough it.
@@ -86,7 +88,7 @@ second_page.headers["Link"]
 # => "<https://api.intrav2.42.fr/v2/cursus/42/users?page=3>; rel=\"next\", <https://api.intrav2.42.fr/v2/cursus/42/users?page=1>; rel=\"prev\", <https://api.intrav2.42.fr/v2/cursus/42/users?page=1>; rel=\"first\", <https://api.intrav2.42.fr/v2/cursus/42/users?page=64>; rel=\"last\""
 ```
 We now have the links for the first, the next, the previous and the last pages.
-The response headers contains a lot of more or less useful informations, take a look.
+The response headers contains a lot of more or less useful informations, like the name of your application, the id, the rates limits and the roles.
 
 ```http
 x-frame-options: SAMEORIGIN
@@ -117,11 +119,33 @@ By default, your application is "rate limited", and can only make a limited numb
 - The `x-ratelimit-limit` field shows the request limit per hour of our application.
 - The `x-ratelimit-remaining` field shows the number of request remaining in this hour for our application.
 
-Now, let's see what happens when we exceed the rate limit
+Now, let's see what happens when we exceed the rate limit, for example by fetching 100 times the users in the 42 cursus.
+
+```ruby
+(1..100).each{|i| token.get("/v2/cursus/42/users", params: {page: i})}
+# OAuth2::Error: Too many requests within the hour:
+# => {"error":"Too many requests within the hour"}
+```
+
+Damn ! Okay, let's wait an hour...
+
+
+
 Roles
 ---------
-`TODO`
+Applications can have **roles**, which grants particular privileges.
+For example, applications recognized as being of public interest may have the role `Official App`, which eliminates any request limitation.
+There is a short list of the most common roles:
 
+- Alpha: Unstable features
+- Beta: Intranet beta-testers
+- Official App: Approved application without rate limits
+- Moderator: Moderate topics, messages and versions on the forum
+- Basic Tutor: Manage projects, scales and all cursus related data
+- Basic Staff: Member of the staff, can manage community services, closes, exams and
+  access advanced student data
 
+The roles of your application are present in the `x-application-roles` field of the response header.
 
+> If your application is "production ready", public and useful, you can [send us a mail](mailto:intrateam@staff.42.fr) to request the `Official App` role.
 
