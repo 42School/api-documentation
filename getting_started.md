@@ -65,4 +65,22 @@ users_in_cursus.count
 ```
 
 What the hell ? Only 30 users ? And what says the [documentation](https://api.intrav2.42.fr/apidoc/2.0/cursus_users/index.html) about that ?
-![doc_pagination](https://raw.githubusercontent.com/lambda2/42-API-Documentation/master/images/doc_pagination.png?token=AC4977psYHY2rQhVrSAnnF5xsIq4m2u4ks5V9QQbwA%3D%3D)
+
+Pagination
+----------
+The documentation says that the resource is paginated by 30 items, and that we can specify a `page` parameter, in order to navigate trough it.
+`TODO`
+
+
+Limits
+---------
+`TODO`
+
+
+Roles
+---------
+`TODO`
+
+
+
+
