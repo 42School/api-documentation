@@ -27,7 +27,9 @@ Now, take a look on your application page, we got a lot of informations there, b
 
 Make basic requests
 --------------------
-Now, you have all you need to setup a little basic script using the API trough your application. In this example, we will use ruby, with the [OAuth2 ruby wrapper](https://github.com/intridea/oauth2), but OAuth2 wrappers exists in most languages.
+Now, you have all you need to setup a little basic script using the API trough your application. In this example, we will use the **Client Credentials Flow**, in ruby, with the [OAuth2 ruby wrapper](https://github.com/intridea/oauth2), but OAuth2 wrappers exists in most languages.
+The Client Credentials flow is probably the most simple flow of OAuth 2 flows. The main difference from the others is that this flow is not associated with a user.
+You can read more about this OAuth flow [directly from the reference documentation of OAuth2](https://tools.ietf.org/html/rfc6749#section-1.3.4). _RIP_.
 
 First of all, we'll request an access token with our application credentials.
 
