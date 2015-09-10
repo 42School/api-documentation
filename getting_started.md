@@ -12,7 +12,7 @@ You will need to configure a few things in order to make your application:
 - **The redirect URI(s)**. Theses URI(s) are needed if you app acts as a third tier between the 42 data and an user (this _flow_ is called `Web Application Flow`), and specify where the user need to be redirected after his authentication. If you plan to use your app just as a server-side app, without user interaction, you can set any valid adress, you'll not need theses URI.
 - **The scopes** you'll need. A scope is an aera of access. By default, your application only have access to public data, it's your call to add more scopes. Try to *only add the scopes you'll really need*, you can change your application scopes later if you need more permissions. 
 
-> Note: The complete description of the authentication process through the OAuth2 Web Application Flow is described in the [introduction section of theses guides](/apidoc/guides/introduction#web-application-flow).
+> Note: The complete description of the authentication process through the OAuth2 Web Application Flow is described in [the next section of this guide](/apidoc/guides/web_application_flow)..
 
 
 Get your credentials
@@ -150,4 +150,6 @@ There is a short list of the most common roles:
 The roles of your application are present in the `x-application-roles` field of the response header.
 
 > If your application is "production ready", public and useful, you can [send us a mail](mailto:intrateam@staff.42.fr) to request the `Official App` role.
+
+That's it for now. If your want to go deeper, and allow users to use their 42 account from a third-party website, you can continue with the [web application flow tutorial](/apidoc/guides/web_application_flow).
 
