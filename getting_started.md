@@ -11,8 +11,10 @@ You will need to configure a few things in order to make your application:
 - **The name** of your application, wich needs to be explicit (please avoid names like "test" or "app").
 - **The redirect URI(s)**. Theses URI(s) are needed if you app acts as a third tier between the 42 data and an user (this _flow_ is called `Web Application Flow`), and specify where the user need to be redirected after his authentication. If you plan to use your app just as a server-side app, without user interaction, you can set any valid adress, you'll not need theses URI.
 - **The scopes** you'll need. A scope is an aera of access. By default, your application only have access to public data, it's your call to add more scopes. Try to *only add the scopes you'll really need*, you can change your application scopes later if you need more permissions. 
+- **Public** set if your application is visible by other users or not.
+- **All the other fields** are facultative, and can be set later.
 
-> Note: The complete description of the authentication process through the OAuth2 Web Application Flow is described in [the next section of this guide](/apidoc/guides/web_application_flow)..
+> Note: The complete description of the authentication process through the OAuth2 Web Application Flow is described in [the next section of this guide](/apidoc/guides/web_application_flow).
 
 
 Get your credentials
