@@ -66,6 +66,19 @@ Authorization scopes are a way to determine to what extent the client can use re
 
 When the client requests the authorization it specifies in which scope they would like to be authorized. This information is then displayed to the user - resource owner - and they can decide whether or not they accept the given application to be able to act in specified scopes.
 
+Requesting a resource with wrong or insufficient scopes will return a `403 Forbidden` response, with more details in the `WWW-Authenticate` response header. For example, for an application without the `projects` scope:
+
+```sh
+GET https://api.intrav2.42.fr/v2/me/slots
+403
+Cache-Control:max-age=0, private, must-revalidate
+Content-Type:application/json; charset=utf-8
+ETag:W/"4d4c5e9e9191ebd5b384aca5e6c5b5b7"
+Transfer-Encoding:chunked
+Vary:Origin
+WWW-Authenticate:Bearer realm="42 API", error="insufficient scope", error_description="The action need the following scopes: [projects]"
+```
+
 
 
 
