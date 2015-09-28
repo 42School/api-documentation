@@ -49,6 +49,13 @@ First of all, we'll request an access token with our application credentials.
   token = client.client_credentials.get_token
 ```
 
+Requesting an access token with the client credentials flow is, in fact, just a POST request on the `/oauth/token` endpoint with a `grant_type` parameter set to `client_credentials`. If you wanted to do this with the command line, the equivalent Curl line will be:
+
+```bash
+$ curl -X POST --data "grant_type=client_credentials&client_id=UID&client_secret=SECRET" https://api.intrav2.42.fr/oauth/token
+# => {"access_token":"42804d1f2480c240f94d8f24b45b318e4bf42e742f0c06a42c6f4242787af42d","token_type":"bearer","expires_in":7200,"scope":"public","created_at":1443451918}
+```
+
 Now, we can fetch all the public data which don't need user authentication, like the list of the cursus in 42.
 The [reference documentation](https://api.intrav2.42.fr/apidoc) gave us ([by the `Cursus` resource page](https://api.intrav2.42.fr/apidoc/2.0/cursus.html)) the endpoint `/v2/cursus`.
 
