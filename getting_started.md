@@ -2,7 +2,7 @@
 Create an application
 ---------------
 
-In order to use the 42 API, you first need to create a "v2" application [here](https://profile.intrav2.42.fr/oauth/applications/new), and get this creation form.
+In order to use the 42 API, you first need to create a "v2" application [here](https://profile.intra.42.fr/oauth/applications/new), and get this creation form.
 
 ![new_app](https://raw.githubusercontent.com/lambda2/42-API-Documentation/master/images/new_app.png?token=AC4978POSgxmEGCtDRFYW3Lx-D1zeEqFks5V9PaBwA%3D%3D)
 
@@ -57,7 +57,7 @@ $ curl -X POST --data "grant_type=client_credentials&client_id=UID&client_secret
 ```
 
 Now, we can fetch all the public data which don't need user authentication, like the list of the cursus in 42.
-The [reference documentation](https://api.intrav2.42.fr/apidoc) gave us ([by the `Cursus` resource page](https://api.intrav2.42.fr/apidoc/2.0/cursus.html)) the endpoint `/v2/cursus`.
+The [reference documentation](https://api.intra.42.fr/apidoc) gave us ([by the `Cursus` resource page](https://api.intra.42.fr/apidoc/2.0/cursus.html)) the endpoint `/v2/cursus`.
 
 
 ```ruby
@@ -76,7 +76,7 @@ users_in_cursus.count
 # => 30
 ```
 
-What the hell ? Only 30 users ? And what says the [documentation](https://api.intrav2.42.fr/apidoc/2.0/cursus_users/index.html) about that ?
+What the hell ? Only 30 users ? And what says the [documentation](https://api.intra.42.fr/apidoc/2.0/cursus_users/index.html) about that ?
 
 
 
