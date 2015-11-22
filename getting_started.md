@@ -43,7 +43,7 @@ First of all, we'll request an access token with our application credentials.
   SECRET = "Your secret token"
 
   # Create the client with your credentials
-  client = OAuth2::Client.new(UID, SECRET, site: "https://api.intrav2.42.fr")
+  client = OAuth2::Client.new(UID, SECRET, site: "https://api.intra.42.fr")
 
   # Get an access token
   token = client.client_credentials.get_token
@@ -52,7 +52,7 @@ First of all, we'll request an access token with our application credentials.
 Requesting an access token with the client credentials flow is, in fact, just a POST request on the `/oauth/token` endpoint with a `grant_type` parameter set to `client_credentials`. If you wanted to do this with the command line, the equivalent Curl line will be:
 
 ```bash
-$ curl -X POST --data "grant_type=client_credentials&client_id=UID&client_secret=SECRET" https://api.intrav2.42.fr/oauth/token
+$ curl -X POST --data "grant_type=client_credentials&client_id=UID&client_secret=SECRET" https://api.intra.42.fr/oauth/token
 # => {"access_token":"42804d1f2480c240f94d8f24b45b318e4bf42e742f0c06a42c6f4242787af42d","token_type":"bearer","expires_in":7200,"scope":"public","created_at":1443451918}
 ```
 
@@ -63,7 +63,7 @@ The [reference documentation](https://api.intra.42.fr/apidoc) gave us ([by the `
 ```ruby
 
 token.get("/v2/cursus").parsed
-# => [{"id"=>1, "created_at"=>"2014-11-02T17:43:38.480+01:00", "name"=>"42", "slug"=>"42", "users_count"=>1918, "users_url"=>"https://api.intrav2.42.fr/v2/cursus/42/users", "projects_url"=>"https://api.intrav2.42.fr/v2/cursus/42/projects", "topics_url"=>"https://api.intrav2.42.fr/v2/cursus/42/topics"}, ...]
+# => [{"id"=>1, "created_at"=>"2014-11-02T17:43:38.480+01:00", "name"=>"42", "slug"=>"42", "users_count"=>1918, "users_url"=>"https://api.intra.42.fr/v2/cursus/42/users", "projects_url"=>"https://api.intra.42.fr/v2/cursus/42/projects", "topics_url"=>"https://api.intra.42.fr/v2/cursus/42/topics"}, ...]
 ```
 
 Hooray ! We got our data ! And what about the users in the cursus `42` ?
@@ -71,7 +71,7 @@ Hooray ! We got our data ! And what about the users in the cursus `42` ?
 ```ruby
 
 users_in_cursus = token.get("/v2/cursus/42/users").parsed
-# => {"id"=>2, "login"=>"avisenti", "url"=>"https://api.intrav2.42.fr/v2/users/avisenti", "end_at"=>nil}, {"id"=>3, "login"=>"spariaud", "url"=>"https://api.intrav2.42.fr/v2/users/spariaud", "end_at"=>nil}, ...
+# => {"id"=>2, "login"=>"avisenti", "url"=>"https://api.intra.42.fr/v2/users/avisenti", "end_at"=>nil}, {"id"=>3, "login"=>"spariaud", "url"=>"https://api.intra.42.fr/v2/users/spariaud", "end_at"=>nil}, ...
 users_in_cursus.count
 # => 30
 ```
@@ -87,16 +87,16 @@ Let's try to fetch the second page:
 
 ```ruby
 second_page = token.get("/v2/cursus/42/users", params: {page: 2})
-# => #<OAuth2::Response:0x007f9ba3b7eb98 @response=#<Faraday::Response:0x007f9ba3b949c0 @on_complete_callbacks=[], @env=#<Faraday::Env @method=:get @body="[{\"id\":35,\"login\":\"droger\",\"url\":\"https://api.intrav2.42.fr/v2/users/droger\",\"end_at\":null},{\"id\":36,\"login\":\"edelbe\",\"url\":\"https://api.intrav2.42.fr/v2/users/edelbe\"...
+# => #<OAuth2::Response:0x007f9ba3b7eb98 @response=#<Faraday::Response:0x007f9ba3b949c0 @on_complete_callbacks=[], @env=#<Faraday::Env @method=:get @body="[{\"id\":35,\"login\":\"droger\",\"url\":\"https://api.intra.42.fr/v2/users/droger\",\"end_at\":null},{\"id\":36,\"login\":\"edelbe\",\"url\":\"https://api.intra.42.fr/v2/users/edelbe\"...
 second_page.parsed
-# => {"id"=>35, "login"=>"droger", "url"=>"https://api.intrav2.42.fr/v2/users/droger", "end_at"=>nil}, {"id"=>36, "login"=>"edelbe", "url"=>"https://api.intrav2.42.fr/v2/users/edelbe", "end_at"=>nil}, ...
+# => {"id"=>35, "login"=>"droger", "url"=>"https://api.intra.42.fr/v2/users/droger", "end_at"=>nil}, {"id"=>36, "login"=>"edelbe", "url"=>"https://api.intra.42.fr/v2/users/edelbe", "end_at"=>nil}, ...
 ```
 
 Well, it seems to work ! But how can we know if there is a next page ? One simple solution is to go forward until the call returns an empty array, but if we need more informations, we can take a look on the `Link` HTTP response header.
 
 ```ruby
 second_page.headers["Link"]
-# => "<https://api.intrav2.42.fr/v2/cursus/42/users?page=3>; rel=\"next\", <https://api.intrav2.42.fr/v2/cursus/42/users?page=1>; rel=\"prev\", <https://api.intrav2.42.fr/v2/cursus/42/users?page=1>; rel=\"first\", <https://api.intrav2.42.fr/v2/cursus/42/users?page=64>; rel=\"last\""
+# => "<https://api.intra.42.fr/v2/cursus/42/users?page=3>; rel=\"next\", <https://api.intra.42.fr/v2/cursus/42/users?page=1>; rel=\"prev\", <https://api.intra.42.fr/v2/cursus/42/users?page=1>; rel=\"first\", <https://api.intra.42.fr/v2/cursus/42/users?page=64>; rel=\"last\""
 ```
 We now have the links for the first, the next, the previous and the last pages.
 The response headers contains a lot of more or less useful informations, like the name of your application, the id, the rates limits and the roles.
@@ -110,8 +110,8 @@ x-ratelimit-remaining: '12'
 x-application-name: My first application
 x-application-id: '1'
 x-application-roles: None
-link: <https://api.intrav2.42.fr/v2/cursus/42/users?page=3>; rel="next", <https://api.intrav2.42.fr/v2/cursus/42/users?page=1>;
-  rel="prev", <https://api.intrav2.42.fr/v2/cursus/42/users?page=1>; rel="first", <https://api.intrav2.42.fr/v2/cursus/42/users?page=64>;
+link: <https://api.intra.42.fr/v2/cursus/42/users?page=3>; rel="next", <https://api.intra.42.fr/v2/cursus/42/users?page=1>;
+  rel="prev", <https://api.intra.42.fr/v2/cursus/42/users?page=1>; rel="first", <https://api.intra.42.fr/v2/cursus/42/users?page=64>;
   rel="last"
 content-type: application/json; charset=utf-8
 etag: W/"78edc461d5186b60dec4e2fd515dda64"

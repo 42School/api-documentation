@@ -9,9 +9,9 @@ Whether you're looking to build an official 42 integration for your service, or 
 Specifications
 --------------
 
-The API works over the https protocol. and accessed from the *api.intrav2.42.fr* domain.
+The API works over the https protocol. and accessed from the *api.intra.42.fr* domain.
 
-- The current endpoint is https://api.intrav2.42.fr/v2.
+- The current endpoint is https://api.intra.42.fr/v2.
 - All data is sent and received as JSON.
 - Blank fields are included as null instead of being omitted.
 - All timestamps are returned in ISO 8601 format
@@ -34,7 +34,7 @@ The authentication on the 42 API works with [OAuth2](http://oauth.net/2/).
 
 OAuth2 is a protocol that lets external apps request authorization to private details in a user’s 42 account without getting their password. This is preferred over a basic authentication because tokens can be limited to specific types of data, and can be revoked by users at any time.
 
-All developers need to [register their application](https://profile.intrav2.42.fr/oauth/applications/new) before getting started. A registered OAuth application is assigned a unique Client ID and Client Secret. The Client Secret should not be shared.
+All developers need to [register their application](https://profile.intra.42.fr/oauth/applications/new) before getting started. A registered OAuth application is assigned a unique Client ID and Client Secret. The Client Secret should not be shared.
 
 
 
@@ -69,7 +69,7 @@ When the client requests the authorization it specifies in which scope they woul
 Requesting a resource with wrong or insufficient scopes will return a `403 Forbidden` response, with more details in the `WWW-Authenticate` response header. For example, for an application without the `projects` scope:
 
 ```sh
-GET https://api.intrav2.42.fr/v2/me/slots
+GET https://api.intra.42.fr/v2/me/slots
 403
 Cache-Control:max-age=0, private, must-revalidate
 Content-Type:application/json; charset=utf-8
@@ -89,7 +89,7 @@ The 42 API paginates all "indexes" pages.
 The `Link` HTTP response header contains pagination data with `first`, `previous`, `next` and `last` raw pages links when available, under the format
 
 ```
-link: <http://api.intrav2.42.fr/v2/{Resource}?page=X+1>; rel="next", <http://api.intrav2.42.fr/v2/{Resource}?page=X-1>; rel="prev", <http://api.intrav2.42.fr/v2/{Resource}?page=1>; rel="first", <http://api.intrav2.42.fr/v2/{Resource}?page=X+n>; rel="last"
+link: <http://api.intra.42.fr/v2/{Resource}?page=X+1>; rel="next", <http://api.intra.42.fr/v2/{Resource}?page=X-1>; rel="prev", <http://api.intra.42.fr/v2/{Resource}?page=1>; rel="first", <http://api.intra.42.fr/v2/{Resource}?page=X+n>; rel="last"
 ```
 
 
