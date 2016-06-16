@@ -4,8 +4,6 @@ On his second version, it identifies 42 applications and users using OAuth, and 
 Whether you're looking to build an official 42 integration for your service, or you just want to build something awesome, [we can help you get started](/apidoc/guides/getting_started).
 
 
-
-
 Specifications
 --------------
 
@@ -16,16 +14,10 @@ The API works over the https protocol. and accessed from the *api.intra.42.fr* d
 - Blank fields are included as null instead of being omitted.
 - All timestamps are returned in ISO 8601 format
 
-
-
-
 Current version
 ----------------
 
-The current API version is *2.0a*. The first version of the API is now deprecated, and we encourage all API v1 applications developers to migrate their apps to this version.
-
-
-
+The current API version is *2.0*.
 
 Authentication
 ----------------
@@ -35,9 +27,6 @@ The authentication on the 42 API works with [OAuth2](http://oauth.net/2/).
 OAuth2 is a protocol that lets external apps request authorization to private details in a user’s 42 account without getting their password. This is preferred over a basic authentication because tokens can be limited to specific types of data, and can be revoked by users at any time.
 
 All developers need to [register their application](https://profile.intra.42.fr/oauth/applications/new) before getting started. A registered OAuth application is assigned a unique Client ID and Client Secret. The Client Secret should not be shared.
-
-
-
 
 Errors
 ----------------
@@ -85,17 +74,20 @@ WWW-Authenticate:Bearer realm="42 API", error="insufficient scope", error_descri
 Pagination
 ----------------
 
-The 42 API paginates all "indexes" pages.
+The 42 API paginates all resources on the "index" method.
+
+Requests that return multiple items will be paginated to 30 items by default. You can specify further pages with the `page[number]` parameter. You can also set a custom page size (up to 100) with the `page[size]` parameter. Note that for technical reasons not all endpoints can go up to 100 on the the `page[size]` parameter.
+
 The `Link` HTTP response header contains pagination data with `first`, `previous`, `next` and `last` raw pages links when available, under the format
 
 ```
 link: <http://api.intra.42.fr/v2/{Resource}?page=X+1>; rel="next", <http://api.intra.42.fr/v2/{Resource}?page=X-1>; rel="prev", <http://api.intra.42.fr/v2/{Resource}?page=1>; rel="first", <http://api.intra.42.fr/v2/{Resource}?page=X+n>; rel="last"
 ```
 
-
-
-
-    
+There is also:
+- A `X-Page` header field, which contains the current page.
+- A `X-Per-Page` header field, which contains the current pagination length.
+- A `X-Total` header field, which contains the count of pages.
 
 
 
