@@ -44,7 +44,7 @@ https://api.intra.42.fr/oauth/authorize?client_id=your_very_long_client_id&redir
 42 redirects back to your site
 ----------------
 
-![auth_dialog](https://raw.githubusercontent.com/lambda2/42-API-Documentation/master/images/authorize_dialog.png?token=AC497ynhhrHdo8rZlplIQ_tb4Fd2wbT4ks5V1J_kwA%3D%3D) _The 42 auth dialog_
+![auth_dialog](https://raw.githubusercontent.com/42School/api-documentation/master/images/authorize_dialog.png) _The 42 auth dialog_
 
 If the user grants the permission for your application to use the requested data (see [scopes](#scopes)), it will be redirected to your `redirect_uri` with a temporary code in a GET `code` parameter as well as the state you provided in the previous step in a `state` parameter.
 > If the states don't match, the request has been created by a third party and the process should be aborted.
@@ -102,7 +102,7 @@ For example, you can fetch the current token owner, with curl:
 ```bash
 curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" https://api.intra.42.fr/v2/me
 
-# {"id":23,"alias":"30_1@orga.42.fr","email":"30_1@orga.42.fr","login":"30_1","url":"https://api.intra.42.fr/v2/users/30_1","mobile":null,"displayname":"Mathieu TRENTIN","image_url":"https://cdn.42.fr/userprofil/profilview/30_1.jpg","staff?":true,"wallet":0,"groups":[{"id":3,"name":"pixel"},{"id":1,"name":"staff"}],"user_data":{"correction_point":5,"location":null,"campus":{"id":1,"name":"Paris","created_at":"2015-05-19T12:53:31.459+02:00","updated_at":"2015-07-20T19:28:05.730+02:00","time_zone":"Paris","language_id":1,"slug":"paris"}},"cursus":[{"id":1,"created_at":"2014-11-02T17:43:38.480+01:00","name":"42","slug":"42","users_count":2024,"url":"https://api.intra.42.fr/v2/cursus/42"}]}
+# {"id":23,"email":"30_1@staff.42.fr","login":"30_1","url":"http://localhost:13000/v2/users/30_1","phone":"0611041698","displayname":"Mathieu Trentin","image_url":"https://cdn.intra.42.fr/userprofil/30_1.jpg","staff?":true,"correction_point":5,"pool_month":null,"pool_year":null,"location":null,"wallet":5,"groups":[{"id":3,"name":"pixel"},{"id":1,"name":"staff"}],"cursus":[{"cursus":{"id":1,"name":"42","created_at":"2014-11-02T16:43:38.480Z","updated_at":"2016-05-25T14:33:59.420Z","slug":"42","kind":"normal"},"end_at":null,"level":0.0,"grade":"Midshipman","projects":[],"skills":[]},{"cursus":{"id":4,"name":"Piscine C","created_at":"2015-05-01T17:46:08.433Z","updated_at":"2016-06-07T17:09:43.612Z","slug":"piscine-c","kind":"normal"},"end_at":null,"level":0.0,"grade":null,"projects":[],"skills":[]}],"achievements":[...],"titles":[],"partnerships":[],"patroned":[],"patroning":[],"expertises_users":[],"campus":[{"id":1,"name":"Paris","time_zone":"Paris","language":{"id":1,"name":"Français","identifier":"fr","created_at":"2014-11-02T16:43:38.466Z","updated_at":"2016-06-08T13:40:28.805Z"},"users_count":5929,"vogsphere_id":1}]}
 ```
 
 > If you can't modify http headers, you can send your token as a `access_token` parameter.
