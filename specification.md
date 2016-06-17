@@ -60,15 +60,31 @@ When the client requests the authorization it specifies in which scope they woul
 
 Requesting a resource with wrong or insufficient scopes will return a `403 Forbidden` response, with more details in the `WWW-Authenticate` response header. For example, for an application without the `projects` scope:
 
-```sh
-GET https://api.intra.42.fr/v2/me/slots
-403
-Cache-Control:max-age=0, private, must-revalidate
-Content-Type:application/json; charset=utf-8
-ETag:W/"4d4c5e9e9191ebd5b384aca5e6c5b5b7"
-Transfer-Encoding:chunked
-Vary:Origin
-WWW-Authenticate:Bearer realm="42 API", error="insufficient scope", error_description="The action need the following scopes: [projects]"
+```http
+POST https://api.intra.42.fr/v2/topics/4242/messages
+
+HTTP/1.1 403 Forbidden
+Cache-Control: no-store
+Content-Type: application/json; charset=utf-8
+Pragma: no-cache
+Transfer-Encoding: chunked
+Vary: Origin
+WWW-Authenticate: Bearer realm="42 API", error="insufficient scope", error_description="The action need the following scopes: [forum]"
+X-Application-Id: 7
+X-Application-Name: Brobot
+X-Application-Roles: None
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-Meta-Request-Version: 0.4.0
+X-Rack-CORS: preflight-hit; no-origin
+X-Request-Id: bb64ca44-142b-46a6-b590-af95e2e05e66
+X-Runtime: 0.045248
+X-XSS-Protection: 1; mode=block
+
+{
+    "error": "Forbidden",
+    "message": "Insufficient scope. The action need the following scopes: [forum] (Create, update and destroy topics and messages)"
+}
 ```
 
 
