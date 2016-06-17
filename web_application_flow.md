@@ -107,14 +107,5 @@ curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" https://api.intra.42.fr/v2/me
 
 > If you can't modify http headers, you can send your token as a `access_token` parameter.
 
---------------------------------------------------------------------------------------------------
-
-If you want to know more about your token, you can fetch **https://api.intra.42.fr/oauth/token/info**.
-
-```bash
-curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" https://api.intra.42.fr/oauth/token/info
-
-# {"resource_owner_id":74,"scopes":["public"],"expires_in_seconds":7174,"application":{"uid":"3089cd94d72cc9109800a5eea5218ed4c3e891ec1784874944225878b95867f9"},"created_at":1439460680}%
-```
 
 

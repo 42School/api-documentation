@@ -114,7 +114,9 @@ The `filter` query parameter can be used to filter a collection on one or severa
 
 For example, the following is a request for all users who have their piscine in 2013, but only in September or July:
 
-`GET /users?filter[pool_year]=2013&filter[pool_month]=september,july`
+```http
+GET /users?filter[pool_year]=2013&filter[pool_month]=september,july HTTP/1.1
+```
 
 
 Sorting
@@ -138,4 +140,15 @@ JSON-API format
 
 The API actually support (in an alpha-stage) the [JSON-API](http://jsonapi.org/) format specification.
 You can request a JSON-API by specifying the request `ContentType` as `application/vnd.api+json`.
+
+Getting informations about your token
+----------------
+
+If you want to know more about your token, you can fetch **https://api.intra.42.fr/oauth/token/info**.
+
+```bash
+curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" https://api.intra.42.fr/oauth/token/info
+
+# {"resource_owner_id":74,"scopes":["public"],"expires_in_seconds":7174,"application":{"uid":"3089cd94d72cc9109800a5eea5218ed4c3e891ec1784874944225878b95867f9"},"created_at":1439460680}%
+```
 
