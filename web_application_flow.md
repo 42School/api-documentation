@@ -107,5 +107,32 @@ curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" https://api.intra.42.fr/v2/me
 
 > If you can't modify http headers, you can send your token as a `access_token` parameter.
 
+Refresh your token
+----------------
 
+Since they have a lifetime token dies. So you need to replace it, you're not sentimental.
 
+##### Base url
+
+```
+POST https://api.intra.42.fr/oauth/token
+```
+
+##### Parameters
+
+Name | Type | Description
+-----|------|--------------
+grant_type | string |  **Required**. The grant type. In this case, it's `refresh_token`.
+refresh_token | string | **Required**. The refresh token your application already received.
+client_id | string |  **Required**. The client ID you received from 42 when you registered.
+client_secret | string |  **Required**. The client secret you received from 42 when you registered.
+
+For example, with curl:
+
+```bash
+curl -F grant_type=refresh_token \
+-F client_id=9b36d8c0db59eff5038aea7a417d73e69aea75b41aac771816d2ef1b3109cc2f \
+-F client_secret=d6ea27703957b69939b8104ed4524595e210cd2e79af587744a7eb6e58f5b3d2 \
+-F refresh_token=42804d1f2480c240f94d8f24b45b318e4bf42e742f0c06a42c6f4242787af42d \
+-X POST https://api.intra.42.fr/oauth/token
+```
